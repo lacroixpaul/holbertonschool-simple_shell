@@ -17,8 +17,16 @@ ssize_t read_input(char **line, size_t *len)
 	read = getline(line, len, stdin);
 	if (read == -1)
 	{
+		if (feof(stdin))
+		{
+			printf("\n");
+			exit(0);
+		}
+		else
+		{
 		printf("No such file or directory\n");
-		exit(0);
+		exit(EXIT_FAILURE);
+		}
 	}
 	return (read);
 }
