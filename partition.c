@@ -26,7 +26,7 @@ char **split_line(char *line)
 		if (position >= buffersize)
 		{
 			buffersize += 64;
-			tokens = realloc(tokens, buffersize * sizeof(char *));
+			tokens = _realloc(tokens, buffersize * sizeof(char *), (buffersize + 64) * sizeof(char *));
 			if (!tokens)
 			{
 				fprintf(stderr, "allocation error\n");

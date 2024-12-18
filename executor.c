@@ -1,5 +1,7 @@
 #include "header.h"
 
+extern char **environ;
+
 /**
 * execute_command - read the user input.
 * @args : array of string to use as argument.
@@ -14,14 +16,14 @@ int execute_command(char **args)
 	pid = fork();
 	if (pid == -1)
 	{
-		fprintf(stderr, "fork error\n");
-		exit(EXIT_FAILURE);
+		perror("fork");
+		return (0);
 	}
 	else if (pid == 0)
 	{
-		if (execvp(args[0], args) == -1)
+		if (execve(args[0], args, environ) == -1)
 		{
-			fprintf(stderr, "execvp error\n");
+			perror ("execve");
 			exit(EXIT_FAILURE);
 		}
 	}
