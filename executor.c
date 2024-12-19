@@ -37,9 +37,7 @@ int execute_command(char **args)
 	}
 	else
 	{
-		do {
-			waitpid(pid, &status, WUNTRACED);
-	} while (!WIFEXITED(status) && !WIFSIGNALED(status));
+		wait(&status);
 	}
 	return (1);
 }
