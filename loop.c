@@ -14,7 +14,10 @@ void loop(void)
 
 	while (status)
 	{
+		if (isatty(STDIN_FILENO) == 1)
+		{
 		printf("#cisfun$ ");
+		}
 		if (read_input(&line, &len) == -1)
 		{
 			free(line);

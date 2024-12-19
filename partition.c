@@ -17,7 +17,7 @@ char **split_line(char *line)
 		fprintf(stderr, "allocation error\n");
 		exit(EXIT_FAILURE);
 	}
-	tkn = strtok(line, " \n");
+	tkn = strtok(line, " \t\n");
 	while (tkn != NULL)
 	{
 		tkns[position] = tkn;
@@ -26,7 +26,8 @@ char **split_line(char *line)
 		if (position >= bufsize)
 		{
 			bufsize += 64;
-			tkns = _realloc(tkns, bufsize * sizeof(char *), (bufsize + 64) * sizeof(char *));
+			tkns = _realloc(tkns, bufsize * sizeof(char *),
+						(bufsize + 64) * sizeof(char *));
 			if (!tkns)
 			{
 				fprintf(stderr, "allocation error\n");
