@@ -15,12 +15,12 @@ int execute_command(char **args, char *argv[], char *envp[])
 
 	if (access(args[0], F_OK) == -1)
 	{
-		perror(argv[0]);
+		fprintf(stderr, "%s: 1: %s: not found\n", argv[0], args[0]);
 		return (1);
 	}
 	if (access(args[0], X_OK) == -1)
 	{
-		perror(argv[0]);
+		fprintf(stderr, "%s: 1: %s: Permission denied\n", argv[0], args[0]);
 		return (1);
 	}
 	pid = fork();
@@ -33,7 +33,7 @@ int execute_command(char **args, char *argv[], char *envp[])
 	{
 		if (execve(args[0], args, envp) == -1)
 		{
-			perror(argv[0]);
+			fprintf(stderr, "%s: 1: %s: not found\n", argv[0], args[0]);
 			exit(EXIT_FAILURE);
 		}
 	}
