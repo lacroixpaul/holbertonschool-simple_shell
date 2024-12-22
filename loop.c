@@ -3,10 +3,11 @@
 /**
 * loop - infinite boucle of the shell.
 * @envp : environnement variable.
+* @argv : string of arguments.
 * Return: void.
 **/
 
-void loop(char *envp[])
+void loop(char *argv[], char *envp[])
 {
 	char *line = NULL;
 	char **args;
@@ -16,9 +17,7 @@ void loop(char *envp[])
 	while (status)
 	{
 		if (isatty(STDIN_FILENO))
-		{
-		printf("#cisfun$ ");
-		}
+			printf("#cisfun$ ");
 		if (read_input(&line, &len) == -1)
 		{
 			if (feof(stdin))
@@ -28,7 +27,7 @@ void loop(char *envp[])
 			}
 			else
 			{
-				perror("read_input");
+				perror(argv[0]);
 				free(line);
 				exit(EXIT_FAILURE);
 			}
@@ -39,7 +38,7 @@ void loop(char *envp[])
 			if (strcmp(args[0], "exit") == 0)
 				status = 0;
 			else
-				status = execute_command(args, envp);
+				status = execute_command(args, argv, envp);
 		}
 		free(args);
 		if (!isatty(STDIN_FILENO))
