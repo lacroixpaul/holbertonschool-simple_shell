@@ -36,7 +36,7 @@ void loop(char *argv[], char *envp[])
 		if (args[0] != NULL)
 		{
 			if (strcmp(args[0], "exit") == 0)
-				status = 0;
+				exit(EXIT_SUCCESS);
 			else
 				status = execute_command(args, argv, envp);
 		}
