@@ -1,11 +1,12 @@
 #include "header.h"
 
 /**
-* loop - infinite boucle of the shell
+* loop - infinite boucle of the shell.
+* @envp : environnement variable.
 * Return: void.
 **/
 
-void loop(void)
+void loop(char *envp[])
 {
 	char *line = NULL;
 	char **args;
@@ -22,7 +23,6 @@ void loop(void)
 		{
 			if (feof(stdin))
 			{
-				printf("\n");
 			free(line);
 			exit(EXIT_SUCCESS);
 			}
@@ -39,7 +39,7 @@ void loop(void)
 			if (strcmp(args[0], "exit") == 0)
 				status = 0;
 			else
-				status = execute_command(args);
+				status = execute_command(args, envp);
 		}
 		free(args);
 		if (!isatty(STDIN_FILENO))
