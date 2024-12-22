@@ -9,33 +9,33 @@
 char **split_line(char *line)
 {
 	int bufsize = 64, position = 0;
-	char **tkns = malloc(bufsize * sizeof(char *));
-	char *tkn;
+	char **tokens = malloc(bufsize * sizeof(char *));
+	char *token;
 
-	if (!tkns)
+	if (!tokens)
 	{
 		fprintf(stderr, "allocation error\n");
 		exit(EXIT_FAILURE);
 	}
-	tkn = strtok(line, " \t\n");
-	while (tkn != NULL)
+	token = strtok(line, " \t\n");
+	while (token != NULL)
 	{
-		tkns[position] = tkn;
+		tokens[position] = token;
 		position++;
 
 		if (position >= bufsize)
 		{
 			bufsize += 64;
-			tkns = _realloc(tkns, bufsize * sizeof(char *),
+			tokens = _realloc(tokens, bufsize * sizeof(char *),
 						(bufsize + 64) * sizeof(char *));
-			if (!tkns)
+			if (!tokens)
 			{
 				fprintf(stderr, "allocation error\n");
 				exit(EXIT_FAILURE);
 			}
 		}
-		tkn = strtok(NULL, " \n");
+		token = strtok(NULL, " \n");
 	}
-	tkns[position] = NULL;
-	return (tkns);
+	tokens[position] = NULL;
+	return (tokens);
 }
