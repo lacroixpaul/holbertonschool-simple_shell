@@ -20,23 +20,17 @@ void loop(char *argv[], char *envp[])
 			printf("#cisfun$ ");
 		if (read_input(&line, &len) == -1)
 		{
-			if (feof(stdin))
-			{
+			perror(argv[0]);
 			free(line);
-			exit(EXIT_SUCCESS);
-			}
-			else
-			{
-				perror(argv[0]);
-				free(line);
-				exit(EXIT_FAILURE);
-			}
+			exit(feof(stdin) ? EXIT_SUCCESS : EXIT_FAILURE);
 		}
 		args = split_line(line);
 		if (args[0] != NULL)
 		{
 			if (strcmp(args[0], "exit") == 0)
 				exit(EXIT_SUCCESS);
+			else if (strcmp(args[0], "env") == 0)
+				_env(envp);
 			else
 				status = execute_command(args, argv, envp);
 		}

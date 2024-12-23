@@ -17,5 +17,6 @@ char **split_line(char *line);
 char *_memcpy(char *dest, char *src, unsigned int n);
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
 char *find_executable(char *command, char *envp[]);
+void _env(char *envp[]);
 
 #endif

@@ -34,7 +34,7 @@ char **split_line(char *line)
 				exit(EXIT_FAILURE);
 			}
 		}
-		token = strtok(NULL, " \n");
+		token = strtok(NULL, " \t\n");
 	}
 	tokens[position] = NULL;
 	return (tokens);

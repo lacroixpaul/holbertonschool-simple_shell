@@ -15,6 +15,13 @@ char *find_executable(char *command, char *envp[])
 	int i = 0;
 	char path_copy[1024];
 
+	if (command[0] == '/')
+	{
+		if (access(command, X_OK) == 0)
+			return (command);
+		return (NULL);
+	}
+
 	for (; envp[i] != NULL; i++)
 	{
 		if (strncmp(envp[i], "PATH=", 5) == 0)

@@ -16,7 +16,7 @@ int execute_command(char **args, char *argv[], char *envp[])
 
 	full_path = find_executable(args[0], envp);
 	if (!full_path)
-	return (1);
+		return (1);
 
 	pid = fork();
 	if (pid == -1)
