@@ -15,5 +15,7 @@ ssize_t read_input(char **line, size_t *len)
 		*len = 0;
 
 	read = getline(line, len, stdin);
+	if (read == -1)
+		return (-1);
 	return (read);
 }

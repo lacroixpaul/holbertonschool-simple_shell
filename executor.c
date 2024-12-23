@@ -1,9 +1,9 @@
 #include "header.h"
 
 /**
-* execute_command - read the user input.
+* execute_command - execute the user input.
 * @args : array of string to use as argument.
-* @argv : string of arguments.
+* @argv : array of strings which are arguments.
 * @envp : environnement variable.
 * Return: 1 in case of sucess otherwise return 0.
 **/
@@ -12,17 +12,12 @@ int execute_command(char **args, char *argv[], char *envp[])
 {
 	pid_t pid;
 	int status;
+	char *full_path;
 
-	if (access(args[0], F_OK) == -1)
-	{
-		fprintf(stderr, "%s: 1: %s: not found\n", argv[0], args[0]);
+	full_path = find_executable(args[0], envp);
+	if (!full_path)
 		return (1);
-	}
-	if (access(args[0], X_OK) == -1)
-	{
-		fprintf(stderr, "%s: 1: %s: Permission denied\n", argv[0], args[0]);
-		return (1);
-	}
+
 	pid = fork();
 	if (pid == -1)
 	{
@@ -31,15 +26,13 @@ int execute_command(char **args, char *argv[], char *envp[])
 	}
 	else if (pid == 0)
 	{
-		if (execve(args[0], args, envp) == -1)
-		{
-			fprintf(stderr, "%s: 1: %s: not found\n", argv[0], args[0]);
-			exit(EXIT_FAILURE);
-		}
+		execve(full_path, args, envp);
+		perror(argv[0]);
+		exit(EXIT_FAILURE);
 	}
 	else
 	{
-		wait(&status);
+		waitpid(pid, &status, 0);
 	}
 	return (1);
 }

@@ -16,7 +16,7 @@ void loop(char *argv[], char *envp[]);
 char **split_line(char *line);
 char *_memcpy(char *dest, char *src, unsigned int n);
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
-int execute_command(char **args)
-int check_command_path(const char *cmd);
+char *find_executable(char *command, char *envp[]);
+void _env(char *envp[]);
 
 #endif
