@@ -16,8 +16,10 @@ int execute_command(char **args, char *argv[], char *envp[])
 
 	full_path = find_executable(args[0], envp);
 	if (!full_path)
+	{
+		fprintf(stderr, "%s: No such file or directory\n", argv[0]);
 		return (1);
-
+	}
 	pid = fork();
 	if (pid == -1)
 	{
