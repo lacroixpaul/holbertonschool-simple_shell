@@ -28,7 +28,10 @@ void loop(char *argv[], char *envp[])
 		if (args[0] != NULL)
 		{
 			if (strcmp(args[0], "exit") == 0)
-			{	free(line);
+			{
+				if (args[1] != NULL)
+					fprintf(stderr, "%s: exit: Too many arguments\n", argv[0]);
+				free(line);
 				free(args);
 				exit(EXIT_SUCCESS);
 			}
