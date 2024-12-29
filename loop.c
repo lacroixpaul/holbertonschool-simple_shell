@@ -28,7 +28,10 @@ void loop(char *argv[], char *envp[])
 		if (args[0] != NULL)
 		{
 			if (strcmp(args[0], "exit") == 0)
+			{	free(line);
+				free(args);
 				exit(EXIT_SUCCESS);
+			}
 			else if (strcmp(args[0], "env") == 0)
 				_env(envp);
 			else
