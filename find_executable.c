@@ -9,13 +9,13 @@
 
 char *find_executable(char *command, char *envp[])
 {
-	static char full_path[256];
+	static char full_path[1024];
 	char *path = NULL;
 	char *dir;
 	int i = 0;
 	char path_copy[1024];
 
-	if (command[0] == '/')
+	if (command[0] == '/' || command[0] == '.' || command[0] == '~')
 	{
 		if (access(command, X_OK) == 0)
 			return (command);
@@ -32,13 +32,15 @@ char *find_executable(char *command, char *envp[])
 	}
 	if (path == NULL)
 		return (NULL);
-	strcpy(path_copy, path);
+	strncpy(path_copy, path, sizeof(path_copy) - 1);
+	path_copy[sizeof(path_copy) - 1] = '\0';
 	dir = strtok(path_copy, ":");
 	while (dir != NULL)
 	{
-		strcpy(full_path, dir);
-		strcat(full_path, "/");
-		strcat(full_path, command);
+		strncpy(full_path, dir, sizeof(full_path) - 1);
+		full_path[sizeof(full_path) - 1] = '\0';
+		strncat(full_path, "/", sizeof(full_path) - strlen(full_path) - 1);
+		strncat(full_path, command, sizeof(full_path) - strlen(full_path) - 1);
 
 		if (access(full_path, X_OK) == 0)
 			return (full_path);

@@ -8,7 +8,7 @@
 
 char **split_line(char *line)
 {
-	int bufsize = 64, position = 0;
+	int bufsize = 64, i = 0;
 	char **tokens = malloc(bufsize * sizeof(char *));
 	char *token;
 
@@ -17,13 +17,13 @@ char **split_line(char *line)
 		fprintf(stderr, "allocation error\n");
 		exit(EXIT_FAILURE);
 	}
-	token = strtok(line, " \t\n");
+	token = strtok(line, "\t\n\r\a ");
 	while (token != NULL)
 	{
-		tokens[position] = token;
-		position++;
+		tokens[i] = token;
+		i++;
 
-		if (position >= bufsize)
+		if (i >= bufsize)
 		{
 			bufsize += 64;
 			tokens = _realloc(tokens, bufsize * sizeof(char *),
@@ -34,8 +34,8 @@ char **split_line(char *line)
 				exit(EXIT_FAILURE);
 			}
 		}
-		token = strtok(NULL, " \t\n");
+		token = strtok(NULL, "\t\n\r\a ");
 	}
-	tokens[position] = NULL;
+	tokens[i] = NULL;
 	return (tokens);
 }
