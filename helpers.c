@@ -123,30 +123,14 @@ int _isdigit(const char *str)
 
 void exit_builtin(char **args, char *line)
 {
-	int exit_number;
+	int exit_number = 0;
 
-	if (args[1] != NULL)
+	free(line);
+	if (args != NULL)
 	{
-		if (args[2] != NULL)
-			fprintf(stderr, "exit: too many arguments\n");
-	else if (_isdigit(args[1]))
-	{
-		exit_number = _atoi(args[1]);
-		if (exit_number > 255 || exit_number < 0)
-			fprintf(stderr, "exit: value out of range\n");
-		else
-		{
-		printf("Exiting with code : %d\n", exit_number);
-		free(line);
-		exit(exit_number);
-		}
+		if (args[1] != NULL)
+			exit_number = _atoi(args[1]);
+		free(args);
 	}
-	else
-		fprintf(stderr, "exit: numeric argument required\n");
-	}
-	else
-	{
-		free(line);
-		exit(EXIT_SUCCESS);
-	}
+	exit(exit_number);
 }
