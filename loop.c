@@ -32,7 +32,14 @@ void loop(char *argv[], char *envp[])
 			else if (strcmp(args[0], "env") == 0)
 				_env(envp);
 			else
-				status = execute_command(args, argv, envp);
+			{
+				char *full_path = find_executable(args[0], envp);
+
+				if (full_path != NULL)
+					status = execute_command(args, argv, envp);
+				else
+					fprintf(stderr, "%s: command not found\n", args[0]);
+			}
 		}
 		free(args);
 		if (!isatty(STDIN_FILENO))
