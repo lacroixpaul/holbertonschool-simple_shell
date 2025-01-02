@@ -123,7 +123,14 @@ int _isdigit(const char *str)
 
 void exit_builtin(char **args, char *line)
 {
+	int exit_number = 0;
+
 	free(line);
-	free(args);
-	exit(EXIT_SUCCESS);
+	if (args != NULL)
+	{
+		if (args[1] != NULL)
+			exit_number = _atoi(args[1]);
+		free(args);
+	}
+	exit(exit_number);
 }
