@@ -102,9 +102,11 @@ int sign = 1;
 
 int _isdigit(const char *str)
 {
-	int i;
+	int i = 0;
 
-	for (i = 0; str[i] != '\0'; i++)
+	if (str[i] == '-')
+		i++;
+	for (; str[i] != '\0'; i++)
 	{
 		if (str[i] < '0' || str[i] > '9')
 		return (0);
@@ -126,16 +128,21 @@ void exit_builtin(char **args, char *line)
 	if (args[1] != NULL)
 	{
 		if (args[2] != NULL)
-			fprintf(stderr, "%s: exit: Too many arguments\n", args[0]);
+			fprintf(stderr, "exit: too many arguments\n");
 	else if (_isdigit(args[1]))
 	{
 		exit_number = _atoi(args[1]);
+		if (exit_number > 255 || exit_number < 0)
+			fprintf(stderr, "exit: value out of range\n");
+		else
+		{
 		printf("Exiting with code : %d\n", exit_number);
 		free(line);
 		exit(exit_number);
+		}
 	}
 	else
-		fprintf(stderr, "exit: %s: numeric argument required\n", args[1]);
+		fprintf(stderr, "exit: numeric argument required\n");
 	}
 	else
 	{
