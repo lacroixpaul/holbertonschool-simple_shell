@@ -11,8 +11,9 @@ void loop(char *argv[], char *envp[])
 {
 	char *line = NULL;
 	char **args;
+	char **commands;
 	size_t len = 0;
-	int status = 1;
+	int status = 1, i = 0;
 
 	while (status != 0)
 	{
@@ -20,13 +21,18 @@ void loop(char *argv[], char *envp[])
 			printf("#cisfun$ ");
 		if (read_input(&line, &len) == -1)
 		{
+			if (!isatty(STDIN_FILENO))
+				break;
 			if (isatty(STDIN_FILENO))
 				printf("\n");
 			perror(argv[0]);
 			free(line);
 			exit(feof(stdin) ? EXIT_SUCCESS : EXIT_FAILURE);
 		}
-		args = split_line(line);
+		commands = split_commands(line);
+		for (i = 0; commands[i] != NULL; i++)
+		{
+			args = split_line(commands[i]);
 			if (args[0] != NULL)
 			{
 				if (strcmp(args[0], "exit") == 0)
@@ -44,9 +50,12 @@ void loop(char *argv[], char *envp[])
 				}
 			}
 		free(args);
+		}
 		free(line);
 		line = NULL;
 		len = 0;
+		if (!isatty(STDIN_FILENO))
+			continue;
 	}
 	free(line);
 }
