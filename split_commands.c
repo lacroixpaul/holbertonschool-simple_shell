@@ -17,7 +17,7 @@ char **split_commands(char *line)
 		fprintf(stderr, "allocation error\n");
 		exit(EXIT_FAILURE);
 	}
-	command = strtok(line, ";\n");
+	command = strtok(line, ";");
 	while (command != NULL)
 	{
 		commands[i] = strdup(command);
@@ -33,7 +33,7 @@ char **split_commands(char *line)
 				exit(EXIT_FAILURE);
 			}
 		}
-		command = strtok(NULL, ";\n");
+		command = strtok(NULL, ";");
 	}
 	commands[i] = NULL;
 	return (commands);
