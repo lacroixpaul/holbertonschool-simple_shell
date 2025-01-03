@@ -23,23 +23,27 @@ int execute_command(char **args, char *argv[], char *envp[])
 	if (access(full_path, X_OK) != 0)
 	{
 		fprintf(stderr, "%s: %s: Permission denied\n", argv[0], full_path);
+		free(full_path);
 		return (1);
 	}
 	pid = fork();
 	if (pid == -1)
 	{
 		perror(argv[0]);
+		free(full_path);
 		return (1);
 	}
 	else if (pid == 0)
 	{
 		execve(full_path, args, envp);
 		perror(argv[0]);
+		free(full_path);
 		exit(EXIT_FAILURE);
 	}
 	else
 	{
 		waitpid(pid, &status, 0);
 	}
+	free(full_path);
 	return (1);
 }
