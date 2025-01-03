@@ -125,19 +125,15 @@ int _isdigit(const char *str)
 
 void exit_builtin(char **args, char *line)
 {
-	int exit_number = 0, i;
+	int exit_number = 0;
 
 	free(line);
 	if (args[1] != NULL)
 	{
 		exit_number = _atoi(args[1]);
-		if (exit_number <= -1)
-			exit_number = 2;
 		free(args);
 		exit(exit_number);
 	}
-	for (i = 0; args[i]; i++)
-		free(args[i]);
 	free(args);
 	exit(0);
 }

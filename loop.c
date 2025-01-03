@@ -15,7 +15,7 @@ void loop(char *argv[], char *envp[])
 	size_t len = 0;
 	int status = 1, i = 0;
 
-	while (status != 0)
+	while (status)
 	{
 		if (isatty(STDIN_FILENO))
 			printf("#cisfun$ ");
