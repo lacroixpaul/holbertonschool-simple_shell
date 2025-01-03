@@ -106,6 +106,8 @@ int _isdigit(const char *str)
 
 	if (str[i] == '-')
 		i++;
+	if (str[i] == '\0')
+		return (0);
 	for (; str[i] != '\0'; i++)
 	{
 		if (str[i] < '0' || str[i] > '9')
@@ -126,11 +128,17 @@ void exit_builtin(char **args, char *line)
 	int exit_number = 0;
 
 	free(line);
-	if (args != NULL)
+	if (args != NULL && args[1] != NULL)
 	{
-		if (args[1] != NULL)
+		if (_isdigit(args[1]))
 			exit_number = _atoi(args[1]);
-		free(args);
+		else
+		{
+			fprintf(stderr, "%s: numeric argument required\n", args[0]);
+			free(args);
+			exit(EXIT_FAILURE);
+		}
 	}
+	free(args);
 	exit(exit_number);
 }
