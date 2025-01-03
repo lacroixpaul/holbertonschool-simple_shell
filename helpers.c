@@ -125,20 +125,19 @@ int _isdigit(const char *str)
 
 void exit_builtin(char **args, char *line)
 {
-	int exit_number = 0;
+	int exit_number = 0, i;
 
 	free(line);
-	if (args != NULL && args[1] != NULL)
+	if (args[1] != NULL)
 	{
-		if (_isdigit(args[1]))
-			exit_number = _atoi(args[1]);
-		else
-		{
-			fprintf(stderr, "%s: numeric argument required\n", args[0]);
-			free(args);
-			exit(EXIT_FAILURE);
-		}
+		exit_number = _atoi(args[1]);
+		if (exit_number <= -1)
+			exit_number = 2;
+		free(args);
+		exit(exit_number);
 	}
+	for (i = 0; args[i]; i++)
+		free(args[i]);
 	free(args);
-	exit(exit_number);
+	exit(0);
 }
