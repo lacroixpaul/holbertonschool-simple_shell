@@ -21,5 +21,6 @@ void _env(char *envp[]);
 int _atoi(char *s);
 void exit_builtin(char **args, char *line);
 int _isdigit(const char *str);
+char **split_commands(char *line);
 
 #endif
