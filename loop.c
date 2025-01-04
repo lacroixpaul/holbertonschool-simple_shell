@@ -10,10 +10,9 @@
 void loop(char *argv[], char *envp[])
 {
 	char *line = NULL;
-	char **args;
 	char **commands;
 	size_t len = 0;
-	int status = 1, i = 0;
+	int status = 1;
 
 	while (status)
 	{
@@ -27,16 +26,39 @@ void loop(char *argv[], char *envp[])
 				printf("\n");
 			perror(argv[0]);
 			free(line);
+			line = NULL;
 			exit(feof(stdin) ? EXIT_SUCCESS : EXIT_FAILURE);
 		}
 		commands = split_commands(line);
+		status = process_commands(commands, argv, envp);
+		free(line);
+		len = 0;
+		if (!isatty(STDIN_FILENO))
+			continue;
+	}
+}
+
+/**
+* process_commands - process each command from the input line.
+* @commands : array of commands.
+* @argv : array of arguments.
+* @envp : environment variables.
+* Return: 1 to continue the loop, 0 to exit.
+**/
+
+int process_commands(char **commands, char *argv[], char *envp[])
+{
+	char **args;
+	int status = 1;
+	int i = 0, j = 0;
+
 		for (i = 0; commands[i] != NULL; i++)
 		{
 			args = split_line(commands[i]);
 			if (args[0] != NULL)
 			{
 				if (strcmp(args[0], "exit") == 0)
-					exit_builtin(args, line);
+					exit_builtin(args, commands[i]);
 				else if (strcmp(args[0], "env") == 0)
 					_env(envp);
 				else
@@ -44,18 +66,19 @@ void loop(char *argv[], char *envp[])
 					char *full_path = find_executable(args[0], envp);
 
 					if (full_path != NULL)
+					{
 						status = execute_command(args, argv, envp);
+						free(full_path);
+					}
 					else
 						fprintf(stderr, "%s: command not found\n", args[0]);
 				}
 			}
-		free(args);
+			for (j = 0; args[j] != NULL; j++)
+			{
+				free(args[j]);
+			}
+			free(args);
 		}
-		free(line);
-		line = NULL;
-		len = 0;
-		if (!isatty(STDIN_FILENO))
-			continue;
-	}
-	free(line);
+	return (status);
 }

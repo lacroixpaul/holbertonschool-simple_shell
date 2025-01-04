@@ -9,6 +9,7 @@
 #include <string.h>
 #include <signal.h>
 
+
 ssize_t read_input(char **line, size_t *len);
 int execute_command(char **args, char *argv[], char *envp[]);
 int main(int argc, char *argv[], char *envp[]);
@@ -22,5 +23,6 @@ int _atoi(char *s);
 void exit_builtin(char **args, char *line);
 int _isdigit(const char *str);
 char **split_commands(char *line);
+int process_commands(char **commands, char *argv[], char *envp[]);
 
 #endif

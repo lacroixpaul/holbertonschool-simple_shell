@@ -17,7 +17,7 @@ int execute_command(char **args, char *argv[], char *envp[])
 	full_path = find_executable(args[0], envp);
 	if (!full_path)
 	{
-	fprintf(stderr, "%s: %s: command not found\n", argv[0], args[0]);
+		fprintf(stderr, "%s: %s: command not found\n", argv[0], args[0]);
 		return (1);
 	}
 	if (access(full_path, X_OK) != 0)

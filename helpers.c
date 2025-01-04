@@ -127,13 +127,14 @@ void exit_builtin(char **args, char *line)
 {
 	int exit_number = 0;
 
-	free(line);
 	if (args[1] != NULL)
 	{
 		exit_number = _atoi(args[1]);
 		free(args);
+		free(line);
 		exit(exit_number);
 	}
 	free(args);
+	free(line);
 	exit(0);
 }
