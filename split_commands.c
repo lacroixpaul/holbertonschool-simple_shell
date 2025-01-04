@@ -8,7 +8,7 @@
 
 char **split_commands(char *line)
 {
-	int bufsize = 64, i = 0;
+	int bufsize = 64, i = 0, j;
 	char **commands = malloc(bufsize * sizeof(char *));
 	char *command;
 
@@ -21,6 +21,16 @@ char **split_commands(char *line)
 	while (command != NULL)
 	{
 		commands[i] = strdup(command);
+		if (!commands[i])
+		{
+			fprintf(stderr, "allocation error\n");
+			for (j = 0; j < i; j++)
+			{
+				free(commands[j]);
+			}
+			free(commands);
+			exit(EXIT_FAILURE);
+		}
 		i++;
 		if (i >= bufsize)
 		{
@@ -30,6 +40,11 @@ char **split_commands(char *line)
 			if (!commands)
 			{
 				fprintf(stderr, "allocation error\n");
+				for (j = 0; j < i; j++)
+				{
+					free(commands[j]);
+				}
+				free(commands);
 				exit(EXIT_FAILURE);
 			}
 		}

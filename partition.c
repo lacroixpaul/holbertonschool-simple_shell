@@ -8,7 +8,7 @@
 
 char **split_line(char *line)
 {
-	int bufsize = 64, i = 0;
+	int bufsize = 64, i = 0, j;
 	char **tokens = malloc(bufsize * sizeof(char *));
 	char *token;
 
@@ -21,7 +21,15 @@ char **split_line(char *line)
 	token = strtok(line, " ;\t\n\r\a");
 	while (token != NULL)
 	{
-		tokens[i] = token;
+		tokens[i] = strdup(token);
+		if (!tokens[i])
+		{
+			fprintf(stderr, "allocation error\n");
+			for (j = 0; j < i; j++)
+				free(tokens[j]);
+			free(tokens);
+			exit(EXIT_FAILURE);
+		}
 		i++;
 		if (i >= bufsize)
 		{
@@ -31,6 +39,8 @@ char **split_line(char *line)
 			if (!tokens)
 			{
 				fprintf(stderr, "allocation error\n");
+				for (j = 0; j < i; j++)
+					free(tokens[j]);
 				exit(EXIT_FAILURE);
 			}
 		}
