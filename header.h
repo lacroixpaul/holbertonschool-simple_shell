@@ -9,20 +9,16 @@
 #include <string.h>
 #include <signal.h>
 
-
-ssize_t read_input(char **line, size_t *len);
-int execute_command(char **args, char *argv[], char *envp[]);
-int main(int argc, char *argv[], char *envp[]);
-void loop(char *argv[], char *envp[]);
-char **split_line(char *line);
+ssize_t read_input(char **input, size_t *len);
+void _env(char *envp[]);
+void exit_builtin(char **args, char *input);
+int main(int argc, char **argv, char *envp[]);
 char *_memcpy(char *dest, char *src, unsigned int n);
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
-char *find_executable(char *command, char *envp[]);
-void _env(char *envp[]);
-int _atoi(char *s);
-void exit_builtin(char **args, char *line);
-int _isdigit(const char *str);
-char **split_commands(char *line);
-int process_commands(char **commands, char *argv[], char *envp[]);
+void execute_command(char **args, char *envp[], char *input);
+char **parse_input(char *input);
+char *handle_path(char *envp[], char *function_name);
+char *_getenv(char *envp[]);
+
 
 #endif
