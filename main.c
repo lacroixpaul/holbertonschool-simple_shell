@@ -26,6 +26,7 @@ ssize_t read_input(char **input, size_t *len)
 * execute_command - execute command.
 * @args : double pointer to store the args.
 * @envp : array of environnement variable.
+* @input : user input.
 * Return: nothing.
 **/
 
@@ -41,7 +42,7 @@ void execute_command(char **args, char *envp[], char *input)
 	}
 	else if (strcmp(args[0], "exit") == 0)
 		exit_builtin(args, input);
-	if (args[0][0] == '/')
+	if (args[0][0] == '/' || args[0][0] == '.')
 		executable_path = strdup(args[0]);
 	else
 		executable_path = handle_path(envp, args[0]);
