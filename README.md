@@ -21,10 +21,34 @@ C
 ## Exemples
 
 Compilation et exécution de commandes simples :
+
 ![Compilation et execution de commandes simples](https://i.ibb.co/WyXYvrT/Compilation-et-execution-de-commandes-simples.png)
 
 Fonctionne de manière interactive et non interactive :
+
 ![Interactif et non interactif](https://i.ibb.co/QHQBjmk/Fonctionne-de-maniere-interactive-et-non-interactive.png)
 
 ## Man page
 Insérer la man page ici
+
+## Testing 
+
+Tests des fuites mémoires effectués avec : 
+```
+valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --log-file=valgrind-out.txt ./hsh
+```
+Exemple de test mémoire :
+
+![Test avec Valgrind](https://i.ibb.co/YbJdBPc/Test-valgrind.png)
+
+Résultats :
+
+![Résultat test Valgrind](https://i.ibb.co/6JcxvZX/Resultat-test-m-moire.png)
+
+Tests du programme effectués avec des commandes avec et sans arguments, avec un PATH spécifié et non spécifié, avec des commandes et/ou arguments erronés.
+
+Exemple :
+
+![Test de commandes](https://i.ibb.co/JtqGX0r/Test-commandes.png)
+
+## Flowchart
