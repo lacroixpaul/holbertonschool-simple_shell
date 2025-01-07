@@ -30,7 +30,7 @@ Fonctionne de manière interactive et non interactive :
 
 ## Man page
 Lien du fichier MAN page :
-
+https://github.com/lacroixpaul/holbertonschool-simple_shell/blob/main/man_1_simple_shell
 
 ## Testing 
 
