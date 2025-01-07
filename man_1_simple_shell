@@ -7,7 +7,7 @@ With the programm, you are able to use mosts functions of the Unix shell.
 It will work on interactive and non interactive mode. 
 
 ## RETURN VALUE ##
-Simple Shell isn't mean to return a value. It will return a value only in case of error.
+Return 0 in success.
 
 ## EXEMPLES ##
 
