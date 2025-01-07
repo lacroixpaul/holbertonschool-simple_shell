@@ -1,0 +1,18 @@
+## NAME ## 
+Simple shell 07-01-2025 version 1.0
+
+## DESCRIPTION ## 
+Simple Shell - a basic command interpreter inspired by the Unix shell.
+With the programm, you are able to use mosts functions of the Unix shell.
+It will work on interactive and non interactive mode. 
+
+## RETURN VALUE ##
+Return 0 in success.
+
+## EXEMPLES ##
+
+GO to https://i.ibb.co/JtqGX0r/Test-commandes.png
+
+## AUTHORS ##
+- Tom MAKNI
+- Paul LACROIX
