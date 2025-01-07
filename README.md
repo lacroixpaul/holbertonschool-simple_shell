@@ -1,4 +1,4 @@
-# C - Simple Shell
+# C - Simple Shell FR
 
 ## Description
 Le projet Simple Shell vise à créer un interpréteur de commandes basique, inspiré du shell Unix. Il permet d'exécuter des commandes simples, de gérer les répertoires et d'interagir avec les variables d'environnement.
@@ -29,7 +29,8 @@ Fonctionne de manière interactive et non interactive :
 ![Interactif et non interactif](https://i.ibb.co/QHQBjmk/Fonctionne-de-maniere-interactive-et-non-interactive.png)
 
 ## Man page
-Insérer la man page ici
+Lien du fichier MAN page :
+
 
 ## Testing 
 
@@ -52,4 +53,11 @@ Exemple :
 ![Test de commandes](https://i.ibb.co/JtqGX0r/Test-commandes.png)
 
 ## Flowchart
+
+![Flowchart](https://i.ibb.co/CKt6rHy/Flowchart.jpg)
+
+## Auteurs
+
+- Tom Chaakni
+- Paul Lacroix
 
