@@ -20,6 +20,5 @@ char **parse_input(char *input);
 char *handle_path(char *envp[], char *function_name);
 char *_getenv(char *envp[]);
 void read_parse_execute_free(char **input, size_t *len, char *envp[]);
-int terminal_interactive(int fd);
 
 #endif
